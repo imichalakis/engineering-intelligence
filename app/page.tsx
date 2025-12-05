@@ -874,10 +874,10 @@ export default function Home() {
               </div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-2 break-words">{t.contact.email}</h3>
               <a 
-                href="mailto:hello@engineeringintelligence.io" 
+                href="mailto:infointelengineering@gmail.com" 
                 className="text-sm sm:text-base text-slate-400 hover:text-cyan-400 transition-colors break-words"
               >
-                hello@engineeringintelligence.io
+                infointelengineering@gmail.com
               </a>
             </motion.div>
 
@@ -1015,8 +1015,8 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                  <a href="mailto:hello@engineeringintelligence.io" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">
-                    hello@engineeringintelligence.io
+                  <a href="mailto:infointelengineering@gmail.com" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">
+                    infointelengineering@gmail.com
                   </a>
                 </li>
                 <li className="flex flex-col gap-2">
