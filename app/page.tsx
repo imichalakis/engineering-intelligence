@@ -423,7 +423,9 @@ export default function Home() {
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center"
             >
-              <Logo variant="full" width={160} height={34} />
+              <div className="w-32 sm:w-40">
+                <Logo variant="full" width={160} height={34} className="w-full h-auto" />
+              </div>
             </motion.div>
             
             <motion.div 
@@ -520,34 +522,34 @@ export default function Home() {
                 <span className="text-cyan-400 text-sm font-medium">{t.hero.badge}</span>
               </div>
               
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight break-words">
                 {t.hero.title1}
                 <span className="block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                   {t.hero.title2}
                 </span>
               </h1>
               
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 leading-relaxed">
                 {t.hero.description}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12">
                 <a 
                   href="#contact"
-                  className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all flex items-center justify-center gap-2"
+                  className="group px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-semibold text-base sm:text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all flex items-center justify-center gap-2"
                 >
                   {t.hero.cta1}
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a 
                   href="#services"
-                  className="px-8 py-4 bg-slate-800/50 backdrop-blur text-white rounded-full font-semibold text-lg hover:bg-slate-800 transition-all flex items-center justify-center border border-slate-700"
+                  className="px-6 py-3 sm:px-8 sm:py-4 bg-slate-800/50 backdrop-blur text-white rounded-full font-semibold text-base sm:text-lg hover:bg-slate-800 transition-all flex items-center justify-center border border-slate-700"
                 >
                   {t.hero.cta2}
                 </a>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={index}
@@ -556,8 +558,8 @@ export default function Home() {
                     transition={{ delay: 0.2 + index * 0.1 }}
                     className="text-center"
                   >
-                    <div className="text-3xl font-bold text-cyan-400 mb-1">{stat.value}</div>
-                    <div className="text-sm text-slate-400">{stat.label}</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-1">{stat.value}</div>
+                    <div className="text-xs sm:text-sm text-slate-400 break-words">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -623,16 +625,16 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 break-words">
               {language === 'el' ? 'Οι ' : 'Our '}
               <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">{language === 'el' ? 'Υπηρεσίες μας' : 'Services'}</span>
             </h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto px-4">
               {t.services.subtitle}
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -640,13 +642,13 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08 }}
-                className="group p-8 bg-slate-800/30 backdrop-blur border border-slate-700/50 rounded-2xl hover:border-cyan-500/50 hover:bg-slate-800/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10"
+                className="group p-6 sm:p-8 bg-slate-800/30 backdrop-blur border border-slate-700/50 rounded-2xl hover:border-cyan-500/50 hover:bg-slate-800/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 w-full"
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <service.icon className="w-7 h-7 text-cyan-400" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                  <service.icon className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-                <p className="text-slate-400 leading-relaxed text-sm">{service.description}</p>
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 break-words">{service.title}</h3>
+                <p className="text-slate-400 leading-relaxed text-sm break-words">{service.description}</p>
               </motion.div>
             ))}
           </div>
@@ -662,11 +664,11 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 break-words">
               {language === 'el' ? 'Τεχνολογία ' : 'Cutting-Edge '}
               <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">{language === 'el' ? 'Αιχμής' : 'Technology'}</span>
             </h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto px-4">
               {t.technology.subtitle}
             </p>
           </motion.div>
@@ -684,7 +686,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className="px-6 py-3 bg-slate-800/50 backdrop-blur border border-slate-700/50 rounded-full text-slate-300 font-medium hover:border-cyan-500/50 hover:text-cyan-400 transition-all"
+                className="px-4 py-2 sm:px-6 sm:py-3 bg-slate-800/50 backdrop-blur border border-slate-700/50 rounded-full text-slate-300 font-medium hover:border-cyan-500/50 hover:text-cyan-400 transition-all text-sm sm:text-base whitespace-nowrap"
               >
                 {tech}
               </motion.div>
@@ -696,22 +698,22 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 break-words">
                 {language === 'el' ? 'Γιατί να Επιλέξετε το ' : 'Why Choose '}
                 <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">EI</span>
                 {language === 'el' ? ';' : '?'}
               </h2>
-              <p className="text-lg text-slate-300 mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-300 mb-8 leading-relaxed break-words">
                 {t.about.description}
               </p>
               
-              <div className="space-y-4">
+              <div className="space-y-4 mb-8 lg:mb-0">
                 {t.about.features.map((item, index) => (
                   <motion.div
                     key={index}
@@ -721,8 +723,8 @@ export default function Home() {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-start gap-3"
                   >
-                    <CheckCircle2 className="w-6 h-6 text-cyan-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">{item}</span>
+                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base text-slate-300 break-words">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -732,15 +734,15 @@ export default function Home() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative w-full"
             >
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 p-8 backdrop-blur">
-                <div className="h-full flex flex-col justify-center space-y-8">
+              <div className="w-full lg:aspect-square rounded-3xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 p-6 sm:p-8 backdrop-blur">
+                <div className="h-full flex flex-col justify-center space-y-6 lg:space-y-8">
                   {aboutCards.map((card, index) => (
-                    <div key={index} className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-                      <card.icon className="w-8 h-8 text-cyan-400 mb-4" />
-                      <h3 className="text-xl font-bold text-white mb-2">{card.title}</h3>
-                      <p className="text-slate-400">{card.description}</p>
+                    <div key={index} className="p-4 sm:p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
+                      <card.icon className="w-6 h-6 sm:w-8 sm:h-8 text-cyan-400 mb-3 sm:mb-4" />
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2 break-words">{card.title}</h3>
+                      <p className="text-sm sm:text-base text-slate-400 break-words">{card.description}</p>
                     </div>
                   ))}
                 </div>
@@ -758,15 +760,15 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 break-words px-4">
               {t.cta.title}
             </h2>
-            <p className="text-xl text-slate-300 mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 px-4">
               {t.cta.subtitle}
             </p>
             <a 
               href="#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-semibold text-base sm:text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all"
             >
               {t.cta.button}
               <ArrowRight className="w-5 h-5" />
@@ -798,25 +800,25 @@ export default function Home() {
               </span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight break-words px-4">
               {t.ctaFinal.title}
             </h2>
             
-            <p className="text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed px-4">
               {t.ctaFinal.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
               <a 
                 href="#contact"
-                className="group px-10 py-5 bg-gradient-to-r from-[#2979FF] to-[#00D4CF] text-white rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all flex items-center justify-center gap-3"
+                className="group px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-[#2979FF] to-[#00D4CF] text-white rounded-full font-bold text-base sm:text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all flex items-center justify-center gap-3"
               >
                 {t.ctaFinal.button1}
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a 
                 href="#contact"
-                className="px-10 py-5 bg-slate-800/50 backdrop-blur-xl text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-all flex items-center justify-center border border-slate-700/50 hover:border-cyan-500/50"
+                className="px-8 py-4 sm:px-10 sm:py-5 bg-slate-800/50 backdrop-blur-xl text-white rounded-full font-bold text-base sm:text-lg hover:bg-slate-800 transition-all flex items-center justify-center border border-slate-700/50 hover:border-cyan-500/50"
               >
                 {t.ctaFinal.button2}
               </a>
@@ -834,36 +836,90 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 break-words">
               {language === 'el' ? 'Επικοινωνήστε' : 'Get in '}
               {language === 'en' && <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Touch</span>}
             </h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto px-4">
               {t.contact.subtitle}
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: MapPin, title: t.contact.location, info: language === 'el' ? 'Κρήτη, Ελλάδα' : 'Crete, Greece' },
-              { icon: Mail, title: t.contact.email, info: 'hello@engineeringintelligence.io' },
-              { icon: Phone, title: t.contact.phone, info: '+30 6980344281' },
-            ].map((contact, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-8 bg-slate-800/30 backdrop-blur border border-slate-700/50 rounded-2xl text-center hover:border-cyan-500/50 transition-all"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            {/* Location Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0 }}
+              className="p-6 sm:p-8 bg-slate-800/30 backdrop-blur border border-slate-700/50 rounded-2xl text-center hover:border-cyan-500/50 transition-all w-full"
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2 break-words">{t.contact.location}</h3>
+              <p className="text-sm sm:text-base text-slate-400 break-words">{language === 'el' ? 'Κρήτη, Ελλάδα' : 'Crete, Greece'}</p>
+            </motion.div>
+
+            {/* Email Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="p-6 sm:p-8 bg-slate-800/30 backdrop-blur border border-slate-700/50 rounded-2xl text-center hover:border-cyan-500/50 transition-all w-full"
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2 break-words">{t.contact.email}</h3>
+              <a 
+                href="mailto:hello@engineeringintelligence.io" 
+                className="text-sm sm:text-base text-slate-400 hover:text-cyan-400 transition-colors break-words"
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <contact.icon className="w-7 h-7 text-cyan-400" />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2">{contact.title}</h3>
-                <p className="text-slate-400">{contact.info}</p>
-              </motion.div>
-            ))}
+                hello@engineeringintelligence.io
+              </a>
+            </motion.div>
+
+            {/* Phone Card with WhatsApp & Viber */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="p-6 sm:p-8 bg-slate-800/30 backdrop-blur border border-slate-700/50 rounded-2xl text-center hover:border-cyan-500/50 transition-all w-full"
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Phone className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-3 break-words">{t.contact.phone}</h3>
+              <a 
+                href="tel:+306980344281" 
+                className="text-sm sm:text-base text-slate-400 hover:text-cyan-400 transition-colors break-words block mb-4"
+              >
+                +30 698 034 4281
+              </a>
+              <div className="flex items-center justify-center gap-3">
+                <a
+                  href="https://wa.me/306980344281"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-green-600/20 hover:bg-green-600/30 border border-green-500/30 hover:border-green-500/50 rounded-lg transition-all group"
+                >
+                  <MessageCircle className="w-4 h-4 text-green-400" />
+                  <span className="text-xs font-medium text-green-400">WhatsApp</span>
+                </a>
+                <a
+                  href="viber://chat?number=%2B306980344281"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 hover:border-purple-500/50 rounded-lg transition-all group"
+                >
+                  <MessageCircle className="w-4 h-4 text-purple-400" />
+                  <span className="text-xs font-medium text-purple-400">Viber</span>
+                </a>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -871,11 +927,13 @@ export default function Home() {
       {/* Footer */}
       <footer className="relative bg-slate-950 border-t border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-12">
             {/* Company Info */}
             <div className="lg:col-span-1">
               <div className="mb-4">
-                <Logo variant="full" width={180} height={38} />
+                <div className="w-40 sm:w-44">
+                  <Logo variant="full" width={180} height={38} className="w-full h-auto" />
+                </div>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed mb-6">
                 {t.footer.description}
@@ -915,7 +973,7 @@ export default function Home() {
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-bold text-white mb-4">{t.footer.quickLinks.title}</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white mb-4">{t.footer.quickLinks.title}</h4>
               <ul className="space-y-3">
                 <li>
                   <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">
@@ -947,7 +1005,7 @@ export default function Home() {
 
             {/* Contact Info */}
             <div>
-              <h4 className="text-lg font-bold text-white mb-4">{t.footer.contactInfo.title}</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white mb-4">{t.footer.contactInfo.title}</h4>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
@@ -961,18 +1019,40 @@ export default function Home() {
                     hello@engineeringintelligence.io
                   </a>
                 </li>
-                <li className="flex items-start gap-3">
-                  <Phone className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                  <a href="tel:+306980344281" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">
-                    +30 6980344281
-                  </a>
+                <li className="flex flex-col gap-2">
+                  <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                    <a href="tel:+306980344281" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">
+                      +30 698 034 4281
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2 ml-8">
+                    <a
+                      href="https://wa.me/306980344281"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-green-600/10 hover:bg-green-600/20 border border-green-500/20 hover:border-green-500/40 rounded-md transition-all text-xs text-green-400 hover:text-green-300"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      WhatsApp
+                    </a>
+                    <a
+                      href="viber://chat?number=%2B306980344281"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-600/10 hover:bg-purple-600/20 border border-purple-500/20 hover:border-purple-500/40 rounded-md transition-all text-xs text-purple-400 hover:text-purple-300"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      Viber
+                    </a>
+                  </div>
                 </li>
               </ul>
             </div>
 
             {/* Newsletter */}
             <div>
-              <h4 className="text-lg font-bold text-white mb-4">{t.footer.newsletter.title}</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white mb-4">{t.footer.newsletter.title}</h4>
               <p className="text-slate-400 text-sm mb-4">
                 {language === 'el' 
                   ? 'Λάβετε τα τελευταία νέα και ενημερώσεις' 
@@ -1000,10 +1080,10 @@ export default function Home() {
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-slate-800/50">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-sm text-slate-400 text-center md:text-left">
+              <p className="text-xs sm:text-sm text-slate-400 text-center md:text-left break-words">
                 {t.footer.copyright}
               </p>
-              <p className="text-sm text-slate-500">
+              <p className="text-xs sm:text-sm text-slate-500 text-center break-words">
                 {t.footer.tagline}
               </p>
             </div>
