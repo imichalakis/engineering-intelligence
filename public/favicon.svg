@@ -1,0 +1,22 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="favGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2979FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00D4CF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Ultra-minimal chip icon -->
+  <!-- Outer chip -->
+  <rect x="6" y="6" width="20" height="20" rx="2" stroke="url(#favGradient)" stroke-width="2" fill="none"/>
+  
+  <!-- Circuit pins simplified -->
+  <line x1="2" y1="12" x2="6" y2="12" stroke="url(#favGradient)" stroke-width="1.5"/>
+  <line x1="2" y1="20" x2="6" y2="20" stroke="url(#favGradient)" stroke-width="1.5"/>
+  <line x1="26" y1="12" x2="30" y2="12" stroke="url(#favGradient)" stroke-width="1.5"/>
+  <line x1="26" y1="20" x2="30" y2="20" stroke="url(#favGradient)" stroke-width="1.5"/>
+  
+  <!-- EI monogram -->
+  <text x="10.5" y="20" font-family="Inter, sans-serif" font-size="10" font-weight="900" fill="url(#favGradient)">EI</text>
+</svg>
