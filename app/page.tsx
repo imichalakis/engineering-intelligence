@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Link from 'next/link';
 import { 
   ArrowRight, 
   Code2, 
@@ -27,6 +28,7 @@ import {
   MessageCircle
 } from 'lucide-react';
 import Logo from '@/components/Logo';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 type Language = 'el' | 'en';
 
@@ -36,6 +38,8 @@ interface Translations {
     technology: string;
     about: string;
     getStarted: string;
+    freemium: string;
+    freemiumSubmenu: string;
   };
   hero: {
     badge: string;
@@ -99,6 +103,7 @@ interface Translations {
       home: string;
       services: string;
       technology: string;
+      freemium: string;
       blog: string;
       contact: string;
     };
@@ -123,7 +128,9 @@ const translations: Record<Language, Translations> = {
       services: 'Υπηρεσίες',
       technology: 'Τεχνολογία',
       about: 'Σχετικά',
-      getStarted: 'Ξεκινήστε'
+      getStarted: 'Ξεκινήστε',
+      freemium: 'Freemium Λύσεις',
+      freemiumSubmenu: 'Ψηφιακές Λύσεις Εστίασης'
     },
     hero: {
       badge: 'Καινοτόμες Ψηφιακές Λύσεις',
@@ -233,6 +240,7 @@ const translations: Record<Language, Translations> = {
         home: 'Αρχική',
         services: 'Υπηρεσίες',
         technology: 'Τεχνολογία',
+        freemium: 'Freemium Λύσεις',
         blog: 'Blog',
         contact: 'Επικοινωνία'
       },
@@ -255,7 +263,9 @@ const translations: Record<Language, Translations> = {
       services: 'Services',
       technology: 'Technology',
       about: 'About',
-      getStarted: 'Get Started'
+      getStarted: 'Get Started',
+      freemium: 'Freemium Solutions',
+      freemiumSubmenu: 'Digital Hospitality'
     },
     hero: {
       badge: 'Innovative Digital Solutions',
@@ -365,6 +375,7 @@ const translations: Record<Language, Translations> = {
         home: 'Home',
         services: 'Services',
         technology: 'Technology',
+        freemium: 'Freemium Solutions',
         blog: 'Blog',
         contact: 'Contact'
       },
@@ -385,7 +396,7 @@ const translations: Record<Language, Translations> = {
 };
 
 export default function Home() {
-  const [language, setLanguage] = useState<Language>('el');
+  const { language, setLanguage } = useLanguage();
   const t = translations[language];
 
   const serviceIcons = [Code2, Sparkles, Cloud, Blocks, Shield, Lightbulb, ShoppingCart, Server];
@@ -436,6 +447,24 @@ export default function Home() {
               <a href="#services" className="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium">{t.nav.services}</a>
               <a href="#technology" className="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium">{t.nav.technology}</a>
               <a href="#about" className="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium">{t.nav.about}</a>
+              
+              {/* Freemium Dropdown */}
+              <div className="relative group">
+                <button className="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium flex items-center gap-1">
+                  {t.nav.freemium}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-64 bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <Link 
+                    href="/freemium"
+                    className="block px-4 py-3 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-colors text-sm rounded-lg m-2"
+                  >
+                    {t.nav.freemiumSubmenu}
+                  </Link>
+                </div>
+              </div>
               
               {/* Language Switcher */}
               <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 rounded-full">
@@ -989,6 +1018,11 @@ export default function Home() {
                   <a href="#technology" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">
                     {t.footer.quickLinks.technology}
                   </a>
+                </li>
+                <li>
+                  <Link href="/freemium" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">
+                    {t.footer.quickLinks.freemium}
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">
