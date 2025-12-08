@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 import Link from 'next/link';
 import { 
   ArrowRight, 
@@ -206,12 +206,8 @@ const translations: Record<Language, FreemiumTranslations> = {
 
 export default function FreemiumPage() {
   const { language, setLanguage } = useLanguage();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const t = translations[language];
-
-  useEffect(() => {
-    console.log('Freemium mobile menu state:', mobileMenuOpen);
-  }, [mobileMenuOpen]);
 
   const featureIcons = [QrCode, Smartphone, Globe, RefreshCw, Cloud, Utensils];
   const addonIcons = [Utensils, CreditCard, Zap, Gift, Monitor, Wifi, Users, Hotel];
@@ -266,12 +262,12 @@ export default function FreemiumPage() {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all z-50"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(prev => !prev)}
+              className="flex md:hidden items-center justify-center w-10 h-10 text-slate-300 hover:text-cyan-400 transition-colors"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
             >
-              {mobileMenuOpen ? (
+              {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
               ) : (
                 <Menu className="w-6 h-6" />
@@ -280,50 +276,45 @@ export default function FreemiumPage() {
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
-        {mobileMenuOpen && (
-          <div
-            className="fixed inset-0 top-20 z-50 bg-slate-950/90 backdrop-blur-lg md:hidden overflow-y-auto"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <div className="max-w-7xl mx-auto px-6 pt-8 pb-8 flex flex-col gap-2" onClick={(e) => e.stopPropagation()}>
+        {/* Mobile Menu Panel */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-slate-800 bg-slate-950/95">
+            <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-3">
               
               {/* Back to Home */}
               <Link 
                 href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 py-3 px-4 text-lg font-medium text-slate-100 hover:text-cyan-400 hover:bg-slate-800/30 rounded-lg transition-all"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-3 text-slate-100 text-lg font-medium py-2 hover:text-cyan-400 transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
                 <span>{t.nav.back}</span>
               </Link>
 
-              <div className="border-t border-slate-800/50 my-2"></div>
-
-              {/* Language Switcher */}
-              <div className="mt-2">
-                <div className="px-4 pb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              {/* Language Toggle */}
+              <div className="border-t border-slate-800/50 pt-3 mt-2">
+                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
                   {language === 'el' ? 'Γλώσσα' : 'Language'}
                 </div>
-                <div className="flex items-center gap-3 px-4">
-                  <Languages className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                <div className="flex items-center gap-3">
+                  <Languages className="w-5 h-5 text-cyan-400" />
                   <div className="flex items-center gap-2 flex-1">
                     <button
                       onClick={() => setLanguage('el')}
-                      className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
-                        language === 'el' 
-                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50' 
-                          : 'bg-slate-800/50 text-slate-400 hover:text-slate-300 border border-slate-700/50'
+                      className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-all ${
+                        language === 'el'
+                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50'
+                          : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
                       }`}
                     >
                       ΕΛ
                     </button>
                     <button
                       onClick={() => setLanguage('en')}
-                      className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
-                        language === 'en' 
-                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50' 
-                          : 'bg-slate-800/50 text-slate-400 hover:text-slate-300 border border-slate-700/50'
+                      className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-all ${
+                        language === 'en'
+                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50'
+                          : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
                       }`}
                     >
                       EN
@@ -333,13 +324,13 @@ export default function FreemiumPage() {
               </div>
 
               {/* WhatsApp Quick Contact */}
-              <div className="px-4 pt-4">
+              <div className="mt-2">
                 <a 
                   href="https://wa.me/306980344281"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 rounded-xl font-medium text-base transition-all"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-3 px-6 py-3 bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 rounded-lg font-medium text-base transition-all"
                 >
                   <MessageCircle className="w-5 h-5" />
                   <span>{language === 'el' ? 'Επικοινωνήστε μαζί μας' : 'Contact Us'}</span>
