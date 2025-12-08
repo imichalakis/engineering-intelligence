@@ -15,7 +15,6 @@ import {
   MapPin,
   Mail,
   Phone,
-  Cpu,
   Blocks,
   Lightbulb,
   Languages,
@@ -25,7 +24,9 @@ import {
   Linkedin,
   Youtube,
   Send,
-  MessageCircle
+  MessageCircle,
+  Menu,
+  X
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -37,6 +38,7 @@ interface Translations {
     services: string;
     technology: string;
     about: string;
+    contact: string;
     getStarted: string;
     freemium: string;
     freemiumSubmenu: string;
@@ -128,6 +130,7 @@ const translations: Record<Language, Translations> = {
       services: 'Υπηρεσίες',
       technology: 'Τεχνολογία',
       about: 'Σχετικά',
+      contact: 'Επικοινωνία',
       getStarted: 'Ξεκινήστε',
       freemium: 'Freemium Λύσεις',
       freemiumSubmenu: 'Ψηφιακές Λύσεις Εστίασης'
@@ -263,6 +266,7 @@ const translations: Record<Language, Translations> = {
       services: 'Services',
       technology: 'Technology',
       about: 'About',
+      contact: 'Contact',
       getStarted: 'Get Started',
       freemium: 'Freemium Solutions',
       freemiumSubmenu: 'Digital Hospitality'
@@ -397,6 +401,7 @@ const translations: Record<Language, Translations> = {
 
 export default function Home() {
   const { language, setLanguage } = useLanguage();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[language];
 
   const serviceIcons = [Code2, Sparkles, Cloud, Blocks, Shield, Lightbulb, ShoppingCart, Server];
@@ -429,16 +434,18 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
+            {/* Logo */}
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex items-center"
+              className="flex items-center z-50"
             >
               <div className="w-32 sm:w-40">
                 <Logo variant="full" width={160} height={34} className="w-full h-auto" />
               </div>
             </motion.div>
             
+            {/* Desktop Navigation */}
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -499,36 +506,138 @@ export default function Home() {
               </a>
             </motion.div>
 
-            {/* Mobile Language Switcher */}
-            <motion.div
+            {/* Mobile Menu Button */}
+            <motion.button
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex md:hidden items-center gap-2 px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 rounded-full"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all z-50"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
             >
-              <Languages className="w-4 h-4 text-cyan-400" />
-              <button
-                onClick={() => setLanguage('el')}
-                className={`px-2 py-1 text-xs font-medium rounded-md transition-all ${
-                  language === 'el' 
-                    ? 'bg-cyan-500/20 text-cyan-400' 
-                    : 'text-slate-400 hover:text-slate-300'
-                }`}
-              >
-                ΕΛ
-              </button>
-              <button
-                onClick={() => setLanguage('en')}
-                className={`px-2 py-1 text-xs font-medium rounded-md transition-all ${
-                  language === 'en' 
-                    ? 'bg-cyan-500/20 text-cyan-400' 
-                    : 'text-slate-400 hover:text-slate-300'
-                }`}
-              >
-                EN
-              </button>
-            </motion.div>
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </motion.button>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed top-20 left-0 right-0 bottom-0 bg-slate-950/98 backdrop-blur-xl border-t border-slate-800/50 overflow-y-auto"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <div className="max-w-7xl mx-auto px-4 py-6 space-y-1" onClick={(e) => e.stopPropagation()}>
+              {/* Mobile Navigation Links */}
+              <a 
+                href="#services" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-4 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all text-base font-medium"
+              >
+                {t.nav.services}
+              </a>
+              <a 
+                href="#technology" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-4 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all text-base font-medium"
+              >
+                {t.nav.technology}
+              </a>
+              <a 
+                href="#about" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-4 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all text-base font-medium"
+              >
+                {t.nav.about}
+              </a>
+              <a 
+                href="#contact" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-4 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all text-base font-medium"
+              >
+                {t.nav.contact}
+              </a>
+              
+              {/* Freemium Section */}
+              <div className="border-t border-slate-800/50 pt-4 mt-4">
+                <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  {t.nav.freemium}
+                </div>
+                <Link 
+                  href="/freemium"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-4 py-4 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all text-base font-medium"
+                >
+                  {t.nav.freemiumSubmenu}
+                </Link>
+              </div>
+
+              {/* Language Switcher */}
+              <div className="border-t border-slate-800/50 pt-4 mt-4">
+                <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  {language === 'el' ? 'Γλώσσα' : 'Language'}
+                </div>
+                <div className="flex items-center gap-3 px-4 py-3">
+                  <Languages className="w-5 h-5 text-cyan-400" />
+                  <div className="flex items-center gap-2 flex-1">
+                    <button
+                      onClick={() => setLanguage('el')}
+                      className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                        language === 'el' 
+                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50' 
+                          : 'bg-slate-800/50 text-slate-400 hover:text-slate-300 border border-slate-700/50'
+                      }`}
+                    >
+                      Ελληνικά
+                    </button>
+                    <button
+                      onClick={() => setLanguage('en')}
+                      className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                        language === 'en' 
+                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50' 
+                          : 'bg-slate-800/50 text-slate-400 hover:text-slate-300 border border-slate-700/50'
+                      }`}
+                    >
+                      English
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="pt-4 mt-4">
+                <a 
+                  href="#contact" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-medium text-base text-center hover:shadow-lg hover:shadow-cyan-500/50 transition-all"
+                >
+                  {t.nav.getStarted}
+                </a>
+              </div>
+
+              {/* WhatsApp Quick Contact */}
+              <div className="pt-2">
+                <a 
+                  href="https://wa.me/306980344281"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 rounded-xl font-medium text-base transition-all"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span>{language === 'el' ? 'WhatsApp' : 'WhatsApp'}</span>
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </nav>
 
       {/* Hero Section */}

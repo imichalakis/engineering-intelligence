@@ -21,7 +21,9 @@ import {
   Hotel,
   Languages,
   ArrowLeft,
-  MessageCircle
+  MessageCircle,
+  Menu,
+  X
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -204,6 +206,7 @@ const translations: Record<Language, FreemiumTranslations> = {
 
 export default function FreemiumPage() {
   const { language, setLanguage } = useLanguage();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[language];
 
   const featureIcons = [QrCode, Smartphone, Globe, RefreshCw, Cloud, Utensils];
@@ -215,20 +218,22 @@ export default function FreemiumPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex items-center gap-6">
+            {/* Logo and Back Link */}
+            <div className="flex items-center gap-6 z-50">
               <Link href="/" className="w-32 sm:w-40">
                 <Logo variant="full" width={160} height={34} className="w-full h-auto" />
               </Link>
               <Link 
                 href="/"
-                className="hidden sm:flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors text-sm"
+                className="hidden md:flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors text-sm"
               >
                 <ArrowLeft className="w-4 h-4" />
                 {t.nav.back}
               </Link>
             </div>
             
-            <div className="flex items-center gap-4">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-4">
               {/* Language Switcher */}
               <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 rounded-full">
                 <Languages className="w-4 h-4 text-cyan-400" />
@@ -254,8 +259,94 @@ export default function FreemiumPage() {
                 </button>
               </div>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 transition-all z-50"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed top-20 left-0 right-0 bottom-0 bg-slate-950/98 backdrop-blur-xl border-t border-slate-800/50 overflow-y-auto"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <div className="max-w-7xl mx-auto px-4 py-6 space-y-1" onClick={(e) => e.stopPropagation()}>
+              {/* Back to Home */}
+              <Link 
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-4 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all text-base font-medium"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                {t.nav.back}
+              </Link>
+
+              <div className="border-t border-slate-800/50 my-4"></div>
+
+              {/* Language Switcher */}
+              <div className="pt-2">
+                <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  {language === 'el' ? 'Γλώσσα' : 'Language'}
+                </div>
+                <div className="flex items-center gap-3 px-4 py-3">
+                  <Languages className="w-5 h-5 text-cyan-400" />
+                  <div className="flex items-center gap-2 flex-1">
+                    <button
+                      onClick={() => setLanguage('el')}
+                      className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                        language === 'el' 
+                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50' 
+                          : 'bg-slate-800/50 text-slate-400 hover:text-slate-300 border border-slate-700/50'
+                      }`}
+                    >
+                      Ελληνικά
+                    </button>
+                    <button
+                      onClick={() => setLanguage('en')}
+                      className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                        language === 'en' 
+                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50' 
+                          : 'bg-slate-800/50 text-slate-400 hover:text-slate-300 border border-slate-700/50'
+                      }`}
+                    >
+                      English
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* WhatsApp Quick Contact */}
+              <div className="pt-4">
+                <a 
+                  href="https://wa.me/306980344281"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 rounded-xl font-medium text-base transition-all"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span>{language === 'el' ? 'Επικοινωνήστε μαζί μας' : 'Contact Us'}</span>
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </nav>
 
       {/* Hero Section */}
