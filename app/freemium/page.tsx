@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   ArrowRight, 
@@ -209,6 +209,10 @@ export default function FreemiumPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[language];
 
+  useEffect(() => {
+    console.log('Freemium mobile menu state:', mobileMenuOpen);
+  }, [mobileMenuOpen]);
+
   const featureIcons = [QrCode, Smartphone, Globe, RefreshCw, Cloud, Utensils];
   const addonIcons = [Utensils, CreditCard, Zap, Gift, Monitor, Wifi, Users, Hotel];
 
@@ -278,34 +282,31 @@ export default function FreemiumPage() {
 
         {/* Mobile Menu Overlay */}
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden fixed top-20 left-0 right-0 bottom-0 bg-slate-950/98 backdrop-blur-xl border-t border-slate-800/50 overflow-y-auto"
+          <div
+            className="fixed inset-0 top-20 z-50 bg-slate-950/90 backdrop-blur-lg md:hidden overflow-y-auto"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <div className="max-w-7xl mx-auto px-4 py-6 space-y-1" onClick={(e) => e.stopPropagation()}>
+            <div className="max-w-7xl mx-auto px-6 pt-8 pb-8 flex flex-col gap-2" onClick={(e) => e.stopPropagation()}>
+              
               {/* Back to Home */}
               <Link 
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-4 py-4 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all text-base font-medium"
+                className="flex items-center gap-3 py-3 px-4 text-lg font-medium text-slate-100 hover:text-cyan-400 hover:bg-slate-800/30 rounded-lg transition-all"
               >
                 <ArrowLeft className="w-5 h-5" />
-                {t.nav.back}
+                <span>{t.nav.back}</span>
               </Link>
 
-              <div className="border-t border-slate-800/50 my-4"></div>
+              <div className="border-t border-slate-800/50 my-2"></div>
 
               {/* Language Switcher */}
-              <div className="pt-2">
-                <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <div className="mt-2">
+                <div className="px-4 pb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
                   {language === 'el' ? 'Γλώσσα' : 'Language'}
                 </div>
-                <div className="flex items-center gap-3 px-4 py-3">
-                  <Languages className="w-5 h-5 text-cyan-400" />
+                <div className="flex items-center gap-3 px-4">
+                  <Languages className="w-5 h-5 text-cyan-400 flex-shrink-0" />
                   <div className="flex items-center gap-2 flex-1">
                     <button
                       onClick={() => setLanguage('el')}
@@ -315,7 +316,7 @@ export default function FreemiumPage() {
                           : 'bg-slate-800/50 text-slate-400 hover:text-slate-300 border border-slate-700/50'
                       }`}
                     >
-                      Ελληνικά
+                      ΕΛ
                     </button>
                     <button
                       onClick={() => setLanguage('en')}
@@ -325,14 +326,14 @@ export default function FreemiumPage() {
                           : 'bg-slate-800/50 text-slate-400 hover:text-slate-300 border border-slate-700/50'
                       }`}
                     >
-                      English
+                      EN
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* WhatsApp Quick Contact */}
-              <div className="pt-4">
+              <div className="px-4 pt-4">
                 <a 
                   href="https://wa.me/306980344281"
                   target="_blank"
@@ -345,7 +346,7 @@ export default function FreemiumPage() {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
       </nav>
 

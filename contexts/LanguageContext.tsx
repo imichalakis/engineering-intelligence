@@ -1,8 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 
-type Language = 'el' | 'en';
+export type Language = 'el' | 'en';
 
 interface LanguageContextType {
   language: Language;
@@ -12,19 +12,23 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
-    // Initialize from localStorage if available (client-side only)
-    if (typeof window !== 'undefined') {
-      const savedLanguage = localStorage.getItem('preferredLanguage') as Language;
-      if (savedLanguage === 'el' || savedLanguage === 'en') {
-        return savedLanguage;
-      }
+  const [language, setLanguage] = useState<Language>('el');
+  const isInitialized = useRef(false);
+
+  // Load language from localStorage on mount (client-side only)
+  useEffect(() => {
+    if (isInitialized.current) return;
+    isInitialized.current = true;
+    
+    const savedLanguage = localStorage.getItem('preferredLanguage') as Language;
+    if (savedLanguage === 'el' || savedLanguage === 'en') {
+      setLanguage(savedLanguage);
     }
-    return 'el';
-  });
+  }, []);
 
   // Save language to localStorage when it changes
   useEffect(() => {
+    if (!isInitialized.current) return;
     localStorage.setItem('preferredLanguage', language);
   }, [language]);
 
