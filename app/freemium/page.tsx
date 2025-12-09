@@ -1,16 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import Link from 'next/link';
+
 import { 
   ArrowRight, 
   CheckCircle2,
   QrCode,
-  Smartphone,
-  Globe,
-  RefreshCw,
-  Cloud,
   Utensils,
   CreditCard,
   Zap,
@@ -19,22 +15,24 @@ import {
   Wifi,
   Users,
   Hotel,
-  Languages,
-  ArrowLeft,
-  MessageCircle,
-  Menu,
-  X
+  MessageCircle
 } from 'lucide-react';
 import Logo from '@/components/Logo';
+import Navbar from '@/components/Navbar';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 type Language = 'el' | 'en';
 
 interface FreemiumTranslations {
   nav: {
-    back: string;
-    home: string;
+    services: string;
+    technology: string;
+    about: string;
+    contact: string;
+    getStarted: string;
     freemium: string;
+    freemiumSubmenu: string;
+    home: string;
   };
   hero: {
     title: string;
@@ -66,9 +64,14 @@ interface FreemiumTranslations {
 const translations: Record<Language, FreemiumTranslations> = {
   el: {
     nav: {
-      back: 'Πίσω στην Αρχική',
-      home: 'Αρχική',
-      freemium: 'Freemium Λύσεις'
+      services: 'Υπηρεσίες',
+      technology: 'Τεχνολογία',
+      about: 'Σχετικά',
+      contact: 'Επικοινωνία',
+      getStarted: 'Ξεκινήστε Τώρα',
+      freemium: 'Freemium Λύσεις',
+      freemiumSubmenu: 'Ψηφιακές Λύσεις Εστίασης',
+      home: 'Αρχική'
     },
     hero: {
       title: 'Ψηφιακές Λύσεις Εστίασης',
@@ -135,9 +138,14 @@ const translations: Record<Language, FreemiumTranslations> = {
   },
   en: {
     nav: {
-      back: 'Back to Home',
-      home: 'Home',
-      freemium: 'Freemium Solutions'
+      services: 'Services',
+      technology: 'Technology',
+      about: 'About',
+      contact: 'Contact',
+      getStarted: 'Get Started',
+      freemium: 'Freemium Solutions',
+      freemiumSubmenu: 'Digital Hospitality',
+      home: 'Home'
     },
     hero: {
       title: 'Digital Hospitality',
@@ -205,141 +213,15 @@ const translations: Record<Language, FreemiumTranslations> = {
 };
 
 export default function FreemiumPage() {
-  const { language, setLanguage } = useLanguage();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language } = useLanguage();
   const t = translations[language];
 
-  const featureIcons = [QrCode, Smartphone, Globe, RefreshCw, Cloud, Utensils];
   const addonIcons = [Utensils, CreditCard, Zap, Gift, Monitor, Wifi, Users, Hotel];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo and Back Link */}
-            <div className="flex items-center gap-6 z-50">
-              <Link href="/" className="w-32 sm:w-40">
-                <Logo variant="full" width={160} height={34} className="w-full h-auto" />
-              </Link>
-              <Link 
-                href="/"
-                className="hidden md:flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors text-sm"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                {t.nav.back}
-              </Link>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-4">
-              {/* Language Switcher */}
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 rounded-full">
-                <Languages className="w-4 h-4 text-cyan-400" />
-                <button
-                  onClick={() => setLanguage('el')}
-                  className={`px-2 py-1 text-xs font-medium rounded-md transition-all ${
-                    language === 'el' 
-                      ? 'bg-cyan-500/20 text-cyan-400' 
-                      : 'text-slate-400 hover:text-slate-300'
-                  }`}
-                >
-                  ΕΛ
-                </button>
-                <button
-                  onClick={() => setLanguage('en')}
-                  className={`px-2 py-1 text-xs font-medium rounded-md transition-all ${
-                    language === 'en' 
-                      ? 'bg-cyan-500/20 text-cyan-400' 
-                      : 'text-slate-400 hover:text-slate-300'
-                  }`}
-                >
-                  EN
-                </button>
-              </div>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(prev => !prev)}
-              className="flex md:hidden items-center justify-center w-10 h-10 text-slate-300 hover:text-cyan-400 transition-colors"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMobileMenuOpen}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu Panel */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-800 bg-slate-950/95">
-            <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-3">
-              
-              {/* Back to Home */}
-              <Link 
-                href="/"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-3 text-slate-100 text-lg font-medium py-2 hover:text-cyan-400 transition-colors"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                <span>{t.nav.back}</span>
-              </Link>
-
-              {/* Language Toggle */}
-              <div className="border-t border-slate-800/50 pt-3 mt-2">
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
-                  {language === 'el' ? 'Γλώσσα' : 'Language'}
-                </div>
-                <div className="flex items-center gap-3">
-                  <Languages className="w-5 h-5 text-cyan-400" />
-                  <div className="flex items-center gap-2 flex-1">
-                    <button
-                      onClick={() => setLanguage('el')}
-                      className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-all ${
-                        language === 'el'
-                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50'
-                          : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-                      }`}
-                    >
-                      ΕΛ
-                    </button>
-                    <button
-                      onClick={() => setLanguage('en')}
-                      className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-all ${
-                        language === 'en'
-                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50'
-                          : 'bg-slate-800/50 text-slate-400 border border-slate-700/50'
-                      }`}
-                    >
-                      EN
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* WhatsApp Quick Contact */}
-              <div className="mt-2">
-                <a 
-                  href="https://wa.me/306980344281"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-3 px-6 py-3 bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 rounded-lg font-medium text-base transition-all"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  <span>{language === 'el' ? 'Επικοινωνήστε μαζί μας' : 'Contact Us'}</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
+      <Navbar translations={t.nav} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
